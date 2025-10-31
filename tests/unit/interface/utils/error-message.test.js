@@ -66,6 +66,26 @@ describe('createErrorMessage', () => {
     expect(errorMessage).toBe('Entrada inválida. Tente novamente. Informe ao suporte o valor (123456789)');
   });
 
+
+  it('should return action and error_id when only action and error_id are provided', () => {
+    const responseBody = {
+      action: 'Tente novamente.',
+      error_id: '123456789'
+    };
+    const errorMessage = createErrorMessage(responseBody);
+    expect(errorMessage).toBe('Tente novamente. Informe ao suporte o valor (123456789)');
+  });
+
+  it('should return message and error_id when only message and error_id are provided', () => {
+    const responseBody = {
+      message: 'Erro de validação.',
+      error_id: '123456789'
+    };
+    const errorMessage = createErrorMessage(responseBody);
+    expect(errorMessage).toBe('Erro de validação. Informe ao suporte o valor (123456789)');
+  });
+
+
   it('should return error message without action when action is a specific string', () => {
     const responseBody = {
       message: 'Um erro interno não esperado aconteceu.',
@@ -75,4 +95,4 @@ describe('createErrorMessage', () => {
     const errorMessage = createErrorMessage(responseBody);
     expect(errorMessage).toBe('Um erro interno não esperado aconteceu. Informe ao suporte o valor (123456789)');
   });
-});
+}); 
